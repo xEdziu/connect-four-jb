@@ -37,6 +37,7 @@ class GameEngine(initialState: GameState = GameState()) {
     }
 
     private fun isBoardFull(board: Board): Boolean =
+        // to consider: checking if only the top row is full - if yes, end the game
         board.grid.all { row -> row.none { cell -> cell == Player.NONE } }
 
     private fun Player.next(): Player = when (this) {
