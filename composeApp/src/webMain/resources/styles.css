@@ -289,3 +289,68 @@ html, body {
         flex: 1 1 100%;
     }
 }
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .page {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 12px 24px;
+        align-items: start;
+        padding: 12px 24px;
+    }
+
+    .title {
+        grid-column: 1;
+        grid-row: 1;
+        margin: 0;
+        font-size: 26px;
+        text-align: left;
+    }
+
+    .panel {
+        grid-column: 1;
+        grid-row: 2;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+        margin: 0;
+    }
+
+    .field {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: none;
+    }
+
+    .field-input {
+        width: 80px;
+        height: 32px;
+    }
+
+    .btn {
+        flex: none;
+        height: 36px;
+        margin-top: 4px;
+    }
+
+    .status, .result-banner {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        padding: 8px;
+        align-self: center;
+    }
+
+    .board {
+        grid-column: 2;
+        grid-row: 2;
+        padding: 8px;
+        gap: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-width: calc(100vh - 80px);
+    }
+}
