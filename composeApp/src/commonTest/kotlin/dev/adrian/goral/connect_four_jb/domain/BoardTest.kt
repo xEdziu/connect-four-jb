@@ -22,7 +22,7 @@ class BoardTest {
     }
 
     @Test
-    fun `all board cells should be initialized to Player.NONE on start`() {
+    fun `all board cells should be initialized to Player NONE on start`() {
         val config = GameConfig(rows = 6, columns = 7)
         val board = Board(config)
 
