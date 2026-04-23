@@ -1,11 +1,3 @@
 package dev.adrian.goral.connect_four_jb
 
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
-
-@OptIn(ExperimentalComposeUiApi::class)
-fun main() {
-    ComposeViewport {
-        App()
-    }
-}
+// Empty by design. Entry points are defined in jsMain and wasmJsMain.
