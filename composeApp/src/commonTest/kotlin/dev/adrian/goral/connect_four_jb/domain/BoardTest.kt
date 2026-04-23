@@ -3,6 +3,7 @@ package dev.adrian.goral.connect_four_jb.domain
 import kotlin.test.DefaultAsserter.assertEquals
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class BoardTest {
@@ -42,5 +43,29 @@ class BoardTest {
         assertEquals(Player.RED, newBoard.grid[5][3], "Token should be placed at the bottom of the column")
         assertEquals(Player.NONE, newBoard.grid[4][3], "Cell above the token should be empty")
         assertEquals(Player.NONE, board.grid[5][3], "Original board should remain unchanged")
+    }
+
+    @Test
+    fun `dropping token out of bounds should throw exception`() {
+        val config = GameConfig(rows = 6, columns = 7)
+        val board = Board(config)
+
+        assertFailsWith<IllegalArgumentException> {
+            board.dropToken(column = -1, player = Player.RED)
+        }
+
+        assertFailsWith<IllegalArgumentException> {
+            board.dropToken(column = 7, player = Player.RED)
+        }
+    }
+
+    @Test
+    fun `dropping NONE token should throw exception`() {
+        val config = GameConfig(rows = 6, columns = 7)
+        val board = Board(config)
+
+        assertFailsWith<IllegalArgumentException> {
+            board.dropToken(column = 3, player = Player.NONE)
+        }
     }
 }
