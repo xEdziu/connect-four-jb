@@ -1,0 +1,7 @@
+TEAM_ID=
+
+PRODUCT_NAME=connect_four_jb
+PRODUCT_BUNDLE_IDENTIFIER=dev.adrian.goral.connect_four_jb.connect_four_jb$(TEAM_ID)
+
+CURRENT_PROJECT_VERSION=1
+MARKETING_VERSION=1.0

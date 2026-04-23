@@ -1,0 +1,7 @@
+package dev.adrian.goral.connect_four_jb
+
+class JVMPlatform : Platform {
+    override val name: String = "Java ${System.getProperty("java.version")}"
+}
+
+actual fun getPlatform(): Platform = JVMPlatform()
