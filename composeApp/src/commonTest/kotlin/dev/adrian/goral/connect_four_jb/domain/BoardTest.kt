@@ -2,13 +2,14 @@ package dev.adrian.goral.connect_four_jb.domain
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class BoardTest {
 
     @Test
     fun `new board should be empty`() {
         val board = Board()
-        assert(board.isEmpty())
+        assertTrue(board.isEmpty())
     }
 
     @Test
