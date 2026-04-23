@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 class WinValidatorTest {
 
     @Test
-    fun `should detect vertical win`() {
+    fun `should detect vertical win for 4 win condition`() {
         val config = GameConfig(rows = 6, columns = 7, winCondition = 4)
         var board = Board(config)
 
@@ -17,20 +17,43 @@ class WinValidatorTest {
         board = board.dropToken(column = 0, player = Player.RED)
 
         assertFalse(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should not win with only 3 vertical tokens (4 to win)"
         )
 
         board = board.dropToken(column = 0, player = Player.RED)
 
         assertTrue(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should win with 4 tokens in a column"
         )
     }
 
     @Test
-    fun `should detect horizontal win`() {
+    fun `should detect vertical win for 5 win condition`() {
+        val config = GameConfig(rows = 6, columns = 7, winCondition = 5)
+        var board = Board(config)
+
+        board = board.dropToken(column = 0, player = Player.RED)
+        board = board.dropToken(column = 0, player = Player.RED)
+        board = board.dropToken(column = 0, player = Player.RED)
+        board = board.dropToken(column = 0, player = Player.RED)
+
+        assertFalse(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should not win with 4 vertical tokens (5 to win)"
+        )
+
+        board = board.dropToken(column = 0, player = Player.RED)
+
+        assertTrue(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should not win with 5 vertical tokens"
+        )
+    }
+
+    @Test
+    fun `should detect horizontal win for 4 win condition`() {
         val config = GameConfig(rows = 6, columns = 7, winCondition = 4)
         var board = Board(config)
 
@@ -39,20 +62,43 @@ class WinValidatorTest {
         board = board.dropToken(column = 2, player = Player.RED)
 
         assertFalse(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should not win with only 3 horizontal tokens (4 to win)"
         )
 
         board = board.dropToken(column = 3, player = Player.RED)
 
         assertTrue(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should win with 4 tokens in a row"
         )
     }
 
     @Test
-    fun `should detect diagonal win from left to right`() {
+    fun `should detect horizontal win for 5 win condition`() {
+        val config = GameConfig(rows = 6, columns = 7, winCondition = 5)
+        var board = Board(config)
+
+        board = board.dropToken(column = 0, player = Player.RED)
+        board = board.dropToken(column = 1, player = Player.RED)
+        board = board.dropToken(column = 2, player = Player.RED)
+        board = board.dropToken(column = 3, player = Player.RED)
+
+        assertFalse(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should not win with only 4 horizontal tokens (5 to win)"
+        )
+
+        board = board.dropToken(column = 4, player = Player.RED)
+
+        assertTrue(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should win with 5 tokens in a row"
+        )
+    }
+
+    @Test
+    fun `should detect diagonal win from left to right for 4 win condition`() {
         val config = GameConfig(rows = 6, columns = 7, winCondition = 4)
         var board = Board(config)
 
@@ -67,7 +113,7 @@ class WinValidatorTest {
         board = board.dropToken(column = 2, player = Player.RED)
 
         assertFalse(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should not win with only 3 diagonal tokens (4 to win)"
         )
 
@@ -77,13 +123,49 @@ class WinValidatorTest {
         board = board.dropToken(column = 3, player = Player.RED)
 
         assertTrue(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should win with 4 tokens on a left-to-right diagonal"
         )
     }
 
     @Test
-    fun `should detect diagonal win from right to left`() {
+    fun `should detect diagonal win from left to right for 5 win condition`() {
+        val config = GameConfig(rows = 6, columns = 7, winCondition = 5)
+        var board = Board(config)
+
+        board = board.dropToken(column = 0, player = Player.RED)
+
+        board = board.dropToken(column = 1, player = Player.BLUE)
+        board = board.dropToken(column = 1, player = Player.RED)
+
+        board = board.dropToken(column = 2, player = Player.BLUE)
+        board = board.dropToken(column = 2, player = Player.BLUE)
+        board = board.dropToken(column = 2, player = Player.RED)
+
+        board = board.dropToken(column = 3, player = Player.BLUE)
+        board = board.dropToken(column = 3, player = Player.BLUE)
+        board = board.dropToken(column = 3, player = Player.BLUE)
+        board = board.dropToken(column = 3, player = Player.RED)
+
+        assertFalse(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should not win with 4 tokens (5 to win)"
+        )
+
+        board = board.dropToken(column = 4, player = Player.BLUE)
+        board = board.dropToken(column = 4, player = Player.BLUE)
+        board = board.dropToken(column = 4, player = Player.BLUE)
+        board = board.dropToken(column = 4, player = Player.BLUE)
+        board = board.dropToken(column = 4, player = Player.RED)
+
+        assertTrue(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should win with 5 tokens on a left-to-right diagonal"
+        )
+    }
+
+    @Test
+    fun `should detect diagonal win from right to left for 4 win condition`() {
         val config = GameConfig(rows = 6, columns = 7, winCondition = 4)
         var board = Board(config)
 
@@ -98,7 +180,7 @@ class WinValidatorTest {
         board = board.dropToken(column = 1, player = Player.RED)
 
         assertFalse(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should not win with only 3 diagonal tokens (4 to win)"
         )
 
@@ -108,8 +190,44 @@ class WinValidatorTest {
         board = board.dropToken(column = 0, player = Player.RED)
 
         assertTrue(
-            WinValidator.hasWon(board, Player.RED),
+            WinValidator.hasWon(board, Player.RED, config),
             "Player should win with 4 tokens on a right-to-left diagonal"
+        )
+    }
+
+    @Test
+    fun `should detect diagonal win from right to left for 5 win condition`() {
+        val config = GameConfig(rows = 6, columns = 7, winCondition = 5)
+        var board = Board(config)
+
+        board = board.dropToken(column = 4, player = Player.RED)
+
+        board = board.dropToken(column = 3, player = Player.BLUE)
+        board = board.dropToken(column = 3, player = Player.RED)
+
+        board = board.dropToken(column = 2, player = Player.BLUE)
+        board = board.dropToken(column = 2, player = Player.BLUE)
+        board = board.dropToken(column = 2, player = Player.RED)
+
+        board =  board.dropToken(column = 1, player = Player.BLUE)
+        board = board.dropToken(column = 1, player = Player.BLUE)
+        board = board.dropToken(column = 1, player = Player.BLUE)
+        board = board.dropToken(column = 1, player = Player.RED)
+
+        assertFalse(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should not win with 4 tokens (5 to win)"
+        )
+
+        board = board.dropToken(column = 0, player = Player.BLUE)
+        board = board.dropToken(column = 0, player = Player.BLUE)
+        board = board.dropToken(column = 0, player = Player.BLUE)
+        board = board.dropToken(column = 0, player = Player.BLUE)
+        board = board.dropToken(column = 0, player = Player.RED)
+
+        assertTrue(
+            WinValidator.hasWon(board, Player.RED, config),
+            "Player should win with 5 tokens on a right-to-left diagonal"
         )
     }
 }
