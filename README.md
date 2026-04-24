@@ -1,80 +1,53 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
+# Connect Four (Compose HTML)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-      folder is the appropriate location.
+Minimal web implementation of Connect Four built with Kotlin Multiplatform and Compose HTML.
+This is the solution for the internship application task for JetBrains.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Task Coverage
 
-### Build and Run Android Application
+- Configurable board size (`rows`, `columns`, currently limited to `4..20` in UI)
+- Configurable win condition (`winCondition`, currently limited to `3..10` and not larger than board size)
+- Gravity rule (tokens fall to the lowest free slot in a selected column)
+- Two-player local gameplay (alternating turns)
+- Win and draw detection
+- Responsive layout for desktop and mobile (`CSS grid` + media queries)
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
+## Bonus Coverage
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+- Piece drop animation (`dropIn` keyframes in CSS)
+- Persistence after refresh (saved in `localStorage`)
+- Unit tests for core logic (`Board`, `GameEngine`, `WinValidator`)
 
-### Build and Run Desktop (JVM) Application
+## Run (Web)
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
+Windows:
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+```powershell
+.\gradlew.bat :composeApp:jsBrowserDevelopmentRun
+```
 
-### Build and Run Web Application
+macOS/Linux:
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
+```bash
+./gradlew :composeApp:jsBrowserDevelopmentRun
+``` 
 
-- for the Wasm target (faster, modern browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-- for the JS target (slower, supports older browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:jsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-      ```
+## Run Tests
 
-### Build and Run iOS Application
+Windows:
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+```powershell
+.\gradlew.bat :composeApp:jvmTest
+```
 
----
+macOS/Linux:
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+```bash
+./gradlew :composeApp:jvmTest
+```
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack
-channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+## Project Structure
+
+- `composeApp/src/commonMain` - shared game logic
+- `composeApp/src/jsMain` - web UI (Compose HTML)
+- `composeApp/src/commonTest` - core logic tests
